@@ -9,6 +9,7 @@
     - mysql
     - backend
     - frontend
+    zone: sn2.online
   tasks:
   - name: create the EC2 instance
     amazon.aws.ec2_instance:
@@ -22,4 +23,16 @@
   
   - name: print the ec2_instances
     ansible.builtin.debug:
-      msg: "{{ ec2_instance.results.instances[0].private_ip_address }}" 
+      msg: "{{ ec2_instance }}" 
+  
+  - name: update the route53 records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ zone }}"
+      record: "{{ item.item }}. {{ zone }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      wait: true  
+      overwrite: true
+    loop: "{{ ec2_instance.results }}"  
