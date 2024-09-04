@@ -11,3 +11,12 @@
       name: mysqld
       state: started
       enabled: yes
+
+  - name: change the default root password for databse service
+    ansible.builtin.command: mysql_secure_installation --set-root-pass ExpenseApp@1
+    register: CMD
+  
+  - name: print the output of the above command
+    ansible.builtin.debug:
+      msg: "{{ CMD }}"
+
