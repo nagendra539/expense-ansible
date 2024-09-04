@@ -7,14 +7,14 @@
     sg: sg-01f4d819d2d330dce
     instances:
     - mysql
-    - Backend
+    - backend
     - frontend
   tasks:
   - name: create the EC2 instance
     amazon.aws.ec2_instance:
-      name: " {{ item }} "
-      vpc_subnet_id: " {{ subnet_id }} "
+      name: "{{ item }}"
+      vpc_subnet_id: "{{ subnet_id }}"
       instance_type: "t3.micro"
-      security_group: " {{ sg }} "
-      image_id: " {{ ami }} "     
-    loop: " {{ instances }} "
+      security_group: "{{ sg }}"
+      image_id: "{{ ami }}"     
+    loop: "{{ instances }}"
