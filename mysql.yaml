@@ -17,4 +17,4 @@
       instance_type: t3.micro
       security_group: {{ sg }}
       image_id: {{ ami }}      
-    loop: {{ instances }}
+    loop: " {{ instances }} "
