@@ -1,6 +1,11 @@
 - name: configure the backend server
   become: yes
   hosts: backend
+  vars:
+    mysql_username: root
+    mysql_pwd: ExpenseApp@1
+    mysql_host: mysql.sn2.online
+
   tasks:
   - name: disbale the nodejs
     ansible.builtin.command: dnf module disable nodejs -y
@@ -52,6 +57,14 @@
       - PyMySQL
       - cryptography
       executable: pip3.9
+  - name: dump mysql database
+    community.mysql.mysql_db:
+      login_user: "{{ mysql_username }}"
+      login_password: "{{ mysql_pwd }}"
+      login_host: "{{ mysql_host }}"
+      state: dump
+      name: all
+      target: /app/schema/backend.sql
 
  
 
