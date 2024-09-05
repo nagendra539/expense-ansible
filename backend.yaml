@@ -66,6 +66,11 @@
       name: all
       target: /app/schema/backend.sql
 
+  - name: restart the backend service
+    ansible.builtin.service:
+      name: backend
+      state: restarted
+
  
 
   
