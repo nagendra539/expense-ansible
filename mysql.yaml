@@ -16,11 +16,11 @@
       state: started
       enabled: yes
   
-  - name: Get MySQL version with non-default credentials
+  - name: connect mysql server
     community.mysql.mysql_info:
       login_user: "{{ mysql_username }}"
       login_password: "{{ mysql_pwd }}"
-      local_host: "{{ mysql_host }}"
+      login_host: "{{ mysql_host }}"
     ignore_errors: true
     register: mysql_info
   
