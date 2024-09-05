@@ -11,6 +11,12 @@
     - frontend
     zone: "sn2.online"
   tasks:
+  - name: install boto3 and botocore packages
+    ansible.builtin.pip:
+      name: 
+      - boto3
+      - botocore
+      executable: 3.19
   - name: create the EC2 instance
     amazon.aws.ec2_instance:
       name: "{{ item }}"
