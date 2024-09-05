@@ -6,7 +6,48 @@
     ansible.builtin.command: dnf module disable nodejs -y
     ansible.builtin.command: dnf module enable nodejs:20 -y
     ansible.builtin.package:
-      name: nodejs
+      name: {{ item}}
       state: present
+      loop:
+      - nodejs
+      - mysql
+
   - name: adding the user expense
-    ansible.builtin.command: useradd expense
+    ansible.builtin.user:
+      name: expense
+
+  - name: create the directory if it not exists
+    ansible.builtin.file:
+      path: /app
+
+  - name:  download the application code
+    ansible.builtin.get_url:
+      url: https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+      dest: /tmp/backend.zip
+  
+  - name: unzip the source code
+    ansible.builtin.unarchive:
+      src: /tmp/backend.zip
+      dest: /app
+      remote_src: true
+
+  - name: install the npm packages
+    ansible.builtin.command: npm install
+    args:
+      chdir: /app
+
+  - name: copy the service file
+    ansible.builtin.copy:
+    src: backend.service
+    dest: /etc/systemd/system/backend.service
+
+  - name: install mysql-python
+    ansible.builtin.pip:
+      name:
+      - PyMySQL
+      - cryptography
+      executable: pip3.9
+
+ 
+
+  
