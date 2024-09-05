@@ -2,9 +2,13 @@
   become: yes
   hosts: backend
   tasks:
-  - name: installing the nodejs
+  - name: disbale the nodejs
     ansible.builtin.command: dnf module disable nodejs -y
+    
+  - name: enable the nodeJS
     ansible.builtin.command: dnf module enable nodejs:20 -y
+
+  - name: install the package
     ansible.builtin.package:
       name: "{{ item }}"
       state: present
