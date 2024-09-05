@@ -1,6 +1,10 @@
 - name: installing the mysql server and configure
   hosts: mysql
   become: yes
+  vars:
+    mysql_username: root
+    mysql_pwd: ExpenseApp@1
+    mysql_host: mysql.sn2.online
   tasks:
   - name: install the mysql server
     ansible.builtin.package:
@@ -11,12 +15,15 @@
       name: mysqld
       state: started
       enabled: yes
-
-  - name: change the default root password for databse service
-    ansible.builtin.command: mysql_secure_installation --set-root-pass ExpenseApp@1
-    register: CMD
+  
+  - name: Get MySQL version with non-default credentials
+    community.mysql.mysql_info:
+      login_user: "{{ mysql_username }}"
+      login_password: "{{ mysql_pwd }}"
+      local_host: "{{ mysql_host }}"
+    register: mysql_info
   
   - name: print the output of the above command
     ansible.builtin.debug:
-      msg: "{{ CMD }}"
+      msg: "{{ mysql_info }}"
 
