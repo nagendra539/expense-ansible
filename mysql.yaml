@@ -21,6 +21,7 @@
       login_user: "{{ mysql_username }}"
       login_password: "{{ mysql_pwd }}"
       local_host: "{{ mysql_host }}"
+    ignore_errors: true
     register: mysql_info
   
   - name: print the output of the above command
