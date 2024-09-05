@@ -4,7 +4,7 @@
   tasks:
   - name: disbale the nodejs
     ansible.builtin.command: dnf module disable nodejs -y
-    
+
   - name: enable the nodeJS
     ansible.builtin.command: dnf module enable nodejs:20 -y
 
@@ -42,8 +42,8 @@
 
   - name: copy the service file
     ansible.builtin.copy:
-    src: backend.service
-    dest: /etc/systemd/system/backend.service
+      src: backend.service
+      dest: /etc/systemd/system/backend.service
 
   - name: install mysql-python
     ansible.builtin.pip:
