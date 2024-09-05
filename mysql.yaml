@@ -6,7 +6,7 @@
     mysql_pwd: ExpenseApp@1
     mysql_host: mysql.sn2.online
   tasks:
-  - nmae: install mysql-python
+  - name: install mysql-python
     ansible.builtin.pip:
       name: PyMySQL
       executable: pip3.9
