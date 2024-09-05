@@ -15,7 +15,7 @@
   
   - name: delete the default html files
     ansible.builtin.file:
-      path: /usr/share/nginx/html
+      path: /usr/share/nginx/html/
       state: absent
   
   - name:  download the application code
