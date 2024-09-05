@@ -1,6 +1,6 @@
 - name: setup the frontend server
   become: yes
-  hosts: frontend.ns2.online
+  hosts: frontend.sn2.online
   tasks:
   - name: install the nginx server
     ansible.builtin.package:
