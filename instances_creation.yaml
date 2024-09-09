@@ -52,7 +52,7 @@
       record: "{{ zone }}" #it will return the item name. from the list 
       type: A
       ttl: 1
-      value: "{{ item.instances[0].public_ip_address }}" # it will fetch the private ipaddress of the first item of the instance. 
+      value: "{{ item.instances[0].public_ip_address }}" # it will fetch the public ipaddress of the first item of the instance. 
       wait: true  
       overwrite: true
     loop: "{{ ec2_instance.results }}"  
